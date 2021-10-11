@@ -1,0 +1,17 @@
+{
+    "update_id": 91315813,
+    "poll_answer": {
+        "poll_id": "5965387013510135817",
+        "user": {
+            "id": 185311388,
+            "is_bot": false,
+            "first_name": "Pablo",
+            "last_name": "Pang",
+            "username": "Pablopang",
+            "language_code": "it"
+        },
+        "option_ids": [
+            2
+        ]
+    }
+}

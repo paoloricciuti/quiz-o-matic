@@ -1,0 +1,24 @@
+{
+  "name": "quiz-o-matic-bot",
+  "version": "1.0.0",
+  "description": "A Telegram bot to send daily trivia",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "heroku-postbuild": "npx sequelize-cli db:migrate"
+  },
+  "author": "Paolo Ricciuti",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "node-fetch": "^2.6.1",
+    "pg": "^8.7.1",
+    "pg-hstore": "^2.3.4",
+    "sequelize": "^6.6.5"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.13"
+  }
+}

@@ -36,8 +36,9 @@ const exec = async (update) => {
     let inline_keyboard = utils.getHoursInlineKeyboard(savedChat);
     const message = {
         chat_id: update.message.chat.id,
-        text: "Set the hours you want to receive a quiz.",
+        text: "Set the hours you want to receive a quiz.\n\nN.b. The default locale is UTC you can set your locale with the command ```/setlocal [yourlocale]``` where yourlocale is the difference between UTC and your timezone (UTC is currently at " + (new Date().getHours()) + ", subtract your hours to this to find your number)",
         reply_markup: { inline_keyboard },
+        parse_mode: "Markdown",
     }
     utils.sendMessage(message);
 };

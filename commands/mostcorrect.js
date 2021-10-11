@@ -31,7 +31,7 @@ const exec = async (update) => {
     leaderboardEntries.sort(([, answersA], [, answersB]) => {
         let correctA = answersA.filter(elem => elem.correct).length;
         let correctB = answersB.filter(elem => elem.correct).length;
-        return correctA - correctB;
+        return correctB - correctA;
     });
     let text = `🏆🏆<b>OFFICIAL LEADERBOARD FOR ${update.message.chat.title ? update.message.chat.title.toUpperCase() : "THIS CHAT"}</b>🏆🏆\n\n`;
     let i = 1;

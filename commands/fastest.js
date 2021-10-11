@@ -47,7 +47,7 @@ const exec = async (update) => {
             return acc + current.time_to_answer;
         }, 0);
         if (correct.length !== 0) {
-            text += `${i}. ${user} (${(sum / correct.length)}s)\n`;
+            text += `${i}. ${user} (${(sum / correct.length).toFixed(2)}s)\n`;
         }
         i++;
     }

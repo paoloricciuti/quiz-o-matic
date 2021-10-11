@@ -68,7 +68,9 @@ const answerMiddleware = async (req, res) => {
     try {
         const command = require(`./commands${commandString}`);
         command.exec(update);
-    } catch (e) { }
+    } catch (e) {
+        console.error(e);
+    }
     res.sendStatus(200);
 };
 

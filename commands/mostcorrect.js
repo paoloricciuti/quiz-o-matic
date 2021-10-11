@@ -37,6 +37,7 @@ const exec = async (update) => {
     let i = 1;
     for (let [user, answers] of leaderboardEntries) {
         text += `${i}. ${user} (${answers.filter(elem => elem.correct).length}/${answers.length})\n`;
+        i++;
     }
     const message = {
         chat_id: update.message.chat.id,

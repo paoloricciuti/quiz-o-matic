@@ -49,6 +49,7 @@ const exec = async (update) => {
         if (correct.length !== 0) {
             text += `${i}. ${user} (${(sum / correct.length)}s)\n`;
         }
+        i++;
     }
     const message = {
         chat_id: update.message.chat.id,

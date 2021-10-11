@@ -2,6 +2,7 @@ const utils = require('../utils');
 const fetch = require('node-fetch');
 const db = require('../models');
 const { Op } = require('sequelize');
+const { sequelize } = require('../models');
 
 const base64ToString = (base64) => {
     return Buffer.from(base64, "base64").toString("ascii");
@@ -10,13 +11,12 @@ const base64ToString = (base64) => {
 const exec = async () => {
     const { Chat, Poll } = db;
     const hour = new Date().getHours();
-    const registeredChats = await Chat.findAll({
+    const allChats = await Chat.findAll({
         where: {
             active: true,
-            hours: { [Op.contains]: [hour] }
         }
     });
-    console.log(registeredChats);
+    const registeredChats = allChats.filter(elem => elem.hours.includes(hour + elem.locale));
     const res = await fetch(`https://opentdb.com/api.php?amount=${registeredChats.length}&type=multiple&encode=base64`);
     if (res.ok) {
         const { results: questions } = await res.json();

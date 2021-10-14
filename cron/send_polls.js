@@ -10,7 +10,7 @@ const base64ToString = (base64) => {
 
 const exec = async () => {
     const { Chat, Poll } = db;
-    const hour = 23;//new Date().getHours();
+    const hour = new Date().getHours();
     const registeredChats = await sequelize.query('SELECT "id", "chat", "active", "hours", "locale", "created_at" AS "createdAt", "updated_at" AS "updatedAt" FROM "chats" AS "Chat" WHERE "Chat"."active" = true AND "Chat"."hours" @> ARRAY[CASE WHEN ($1+"Chat"."locale")<0 THEN (24+($1+"Chat"."locale")) ELSE (($1+"Chat"."locale") % 24) END]::INTEGER[]', {
         bind: [hour],
         type: QueryTypes.SELECT,

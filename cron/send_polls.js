@@ -10,14 +10,15 @@ const base64ToString = (base64) => {
 
 const exec = async () => {
     const { Chat, Poll } = db;
-    const hour = new Date().getHours() - 2;
-    const registeredChats = await sequelize.query('SELECT "id", "chat", "active", "hours", "locale", "created_at" AS "createdAt", "updated_at" AS "updatedAt" FROM "chats" AS "Chat" WHERE "Chat"."active" = true AND "Chat"."hours" @> ARRAY[$1+"Chat"."locale"]::INTEGER[]', {
+    const hour = 23;//new Date().getHours();
+    const registeredChats = await sequelize.query('SELECT "id", "chat", "active", "hours", "locale", "created_at" AS "createdAt", "updated_at" AS "updatedAt" FROM "chats" AS "Chat" WHERE "Chat"."active" = true AND "Chat"."hours" @> ARRAY[CASE WHEN ($1+"Chat"."locale")<0 THEN (24+($1+"Chat"."locale")) ELSE (($1+"Chat"."locale") % 24) END]::INTEGER[]', {
         bind: [hour],
         type: QueryTypes.SELECT,
         model: Chat,
         mapToModel: true,
     });
     const res = await fetch(`https://opentdb.com/api.php?amount=${registeredChats.length}&type=multiple&encode=base64`);
+    const toReturn = [];
     if (res.ok) {
         const { results: questions } = await res.json();
         let i = 0;
@@ -40,10 +41,12 @@ const exec = async () => {
                     chat_id: sentPoll.result.chat.id,
                     correct_option: sentPoll.result.poll.correct_option_id,
                 });
+                toReturn.push({ id: chat.id, name: chat.chat, question: sentPoll.result.poll.question });
             } catch (e) { console.error(e); }
             i = (i + 1) % questions.length;
         }
     }
+    return toReturn;
 };
 
 module.exports = {

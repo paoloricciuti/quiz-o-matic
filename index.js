@@ -1,7 +1,7 @@
 const express = require('express');
 const http = require('http');
 const utils = require('./utils');
-require('dotenv').config()
+require('dotenv').config();
 const app = express();
 app.use(express.json());
 const server = http.createServer(app);
@@ -35,7 +35,7 @@ const answerMiddleware = async (req, res) => {
                 id: poll_answer.user.id,
                 username: poll_answer.user.username ? poll_answer.user.username : `${poll_answer.user.first_name}${poll_answer.user.last_name ? ` ${$poll_answer.user.last_name}` : ""}`
             });
-        } catch (e) { console.error(e) }
+        } catch (e) { console.error(e); }
         try {
             const poll = await Poll.findOne({
                 where: {
@@ -50,7 +50,7 @@ const answerMiddleware = async (req, res) => {
                 correct: poll_answer.option_ids[0] === poll.correct_option,
                 time_to_answer: Math.floor((new Date() - poll.createdAt) / 1000),
             });
-        } catch (e) { console.error(e) }
+        } catch (e) { console.error(e); }
         res.sendStatus(200);
         return;
     }
@@ -64,7 +64,7 @@ const answerMiddleware = async (req, res) => {
         return;
     }
     const commandString = utils.getCommand(update);
-    console.log(commandString)
+    console.log(commandString);
     try {
         const command = require(`./commands${commandString}`);
         command.exec(update);
@@ -87,14 +87,15 @@ const answerMiddleware = async (req, res) => {
 
 app.post(`/${process.env.BOT_TOKEN}`, answerMiddleware);
 
-app.get('/send-polls', (req, res) => {
+app.get('/send-polls', async (req, res) => {
     try {
         const command = require(`./cron/send_polls`);
-        command.exec();
-    } catch (e) { console.error(e) }
+        const chats = await command.exec();
+        return res.json(chats);
+    } catch (e) { console.error(e); }
     res.sendStatus(200);
-})
+});
 
 server.listen(process.env.PORT || 3333, () => {
     console.log("Server up and running...");
-})
+});

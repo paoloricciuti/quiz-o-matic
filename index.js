@@ -30,6 +30,7 @@ const answerMiddleware = async (req, res) => {
     if (update.poll_answer) {
         const { Answer, User, Poll } = db;
         const { poll_answer } = update;
+        console.log(poll_answer);
         try {
             User.upsert({
                 id: poll_answer.user.id,
@@ -64,12 +65,14 @@ const answerMiddleware = async (req, res) => {
         return;
     }
     const commandString = utils.getCommand(update);
-    console.log(commandString);
-    try {
-        const command = require(`./commands${commandString}`);
-        command.exec(update);
-    } catch (e) {
-        console.error(e);
+    if (commandString !== "") {
+        console.log("EXECUTING COMMAND ", commandString);
+        try {
+            const command = require(`./commands${commandString}`);
+            command.exec(update);
+        } catch (e) {
+            console.error(e);
+        }
     }
     res.sendStatus(200);
 };

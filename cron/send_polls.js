@@ -8,6 +8,15 @@ const base64ToString = (base64) => {
     return Buffer.from(base64, "base64").toString("ascii");
 };
 
+const shuffle = (array) => {
+    const retval = [...array];
+    for (let i = retval.length - 1; i >= 0; i--) {
+        const random = Math.floor(Math.random() * i);
+        [retval[i], retval[random]] = [retval[random], retval[i]];
+    }
+    return retval;
+};
+
 const exec = async () => {
     const { Chat, Poll } = db;
     const hour = new Date().getHours();
@@ -24,7 +33,7 @@ const exec = async () => {
         let i = 0;
         for (let chat of registeredChats) {
             const data = questions[i];
-            const options = [...data.incorrect_answers, data.correct_answer].sort(() => Math.random() - .5);
+            const options = shuffle([...data.incorrect_answers, data.correct_answer]);
             const sentPoll = await utils.sendPoll({
                 chat_id: chat.id,
                 question: base64ToString(data.question),

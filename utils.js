@@ -60,6 +60,7 @@ const checkAdmin = async (update) => {
         toDestructure = update.callback_query;
     }
     const { message: { chat: { id: chatId }, from: { id: userId } } } = toDestructure;
+    console.log(chatId, userId);
     if (chatId == userId) {
         return true;
     }

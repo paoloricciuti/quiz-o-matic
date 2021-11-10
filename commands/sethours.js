@@ -2,6 +2,7 @@ const db = require('../models');
 const utils = require('../utils');
 
 const exec = async (update) => {
+    console.log(utils.checkAdmin(update));
     if (!utils.checkAdmin(update)) {
         const message = {
             chat_id: update.message.chat.id,

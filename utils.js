@@ -55,6 +55,7 @@ const sendPoll = (poll) => {
 };
 
 const checkAdmin = async (update) => {
+    console.log(update);
     let toDestructure = update;
     if (update.callback_query) {
         toDestructure = update.callback_query;
@@ -66,6 +67,7 @@ const checkAdmin = async (update) => {
     }
     const response = await fetch(`${BASE_URL}/getChatMember?chat_id=${chatId}&user_id=${userId}`);
     const result = await response.json();
+    console.log(result);
     return ["administrator", "creator"].includes(result.result.status);
 };
 

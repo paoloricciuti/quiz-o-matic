@@ -2,8 +2,8 @@ const db = require('../models');
 const utils = require('../utils');
 
 const exec = async (update) => {
-    console.log(utils.checkAdmin(update));
-    if (!utils.checkAdmin(update)) {
+    const checkAdmin = await utils.checkAdmin(update);
+    if (!checkAdmin) {
         const message = {
             chat_id: update.message.chat.id,
             text: "This command can only be used by admins.",

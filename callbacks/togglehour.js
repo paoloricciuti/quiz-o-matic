@@ -3,7 +3,8 @@ const utils = require('../utils');
 
 const exec = async (update, [stringHour]) => {
     const hour = +stringHour;
-    if (!utils.checkAdmin(update)) {
+    const checkAdmin = await utils.checkAdmin(update);
+    if (!checkAdmin) {
         return;
     }
     const { Chat } = db;
@@ -31,4 +32,4 @@ const exec = async (update, [stringHour]) => {
 
 module.exports = {
     exec
-}
+};

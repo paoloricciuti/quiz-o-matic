@@ -55,19 +55,19 @@ const sendPoll = (poll) => {
 };
 
 const checkAdmin = async (update) => {
-    console.log(update);
     let toDestructure = update;
     if (update.callback_query) {
         toDestructure = update.callback_query;
     }
-    const { message: { chat: { id: chatId }, from: { id: userId } } } = toDestructure;
-    console.log(chatId, userId);
+    let { message: { chat: { id: chatId }, from: { id: userId } } } = toDestructure;
+    if (update.callback_query) {
+        userId = update.callback_query.from.id;
+    }
     if (chatId == userId) {
         return true;
     }
     const response = await fetch(`${BASE_URL}/getChatMember?chat_id=${chatId}&user_id=${userId}`);
     const result = await response.json();
-    console.log(result);
     return ["administrator", "creator"].includes(result.result.status);
 };
 

@@ -2,11 +2,12 @@ const db = require('../models');
 const utils = require('../utils');
 
 const exec = async (update) => {
-    if (!utils.checkAdmin(update)) {
+    const checkAdmin = await utils.checkAdmin(update);
+    if (!checkAdmin) {
         const message = {
             chat_id: update.message.chat.id,
             text: "This command can only be used by admins.",
-        }
+        };
         utils.sendMessage(message);
         return;
     }
@@ -15,8 +16,8 @@ const exec = async (update) => {
         const message = {
             chat_id: update.message.chat.id,
             text: "This command is only for groups.",
-        }
-        utils.sendMessage(message)
+        };
+        utils.sendMessage(message);
         return;
     }
     const [, locale] = update.message.text.split(" ");
@@ -24,8 +25,8 @@ const exec = async (update) => {
         const message = {
             chat_id: update.message.chat.id,
             text: "The locale should be a positive or negative number and should be the difference between your timezone and UTC.",
-        }
-        utils.sendMessage(message)
+        };
+        utils.sendMessage(message);
         return;
     }
     const { Chat } = db;
@@ -38,7 +39,7 @@ const exec = async (update) => {
         const message = {
             chat_id: update.message.chat.id,
             text: "This chat appears to not be registered, try again later.",
-        }
+        };
         utils.sendMessage(message);
         return;
     }
@@ -51,10 +52,10 @@ const exec = async (update) => {
     const message = {
         chat_id: update.message.chat.id,
         text: "The new Locale has been updated."
-    }
-    utils.sendMessage(message)
+    };
+    utils.sendMessage(message);
 };
 
 module.exports = {
     exec
-}
+};

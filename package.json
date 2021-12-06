@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node index.js",
     "dev": "nodemon index.js",
-    "heroku-postbuild": "npx sequelize-cli db:migrate && node command_setternode"
+    "heroku-postbuild": "npx sequelize-cli db:migrate && node command_setter"
   },
   "author": "Paolo Ricciuti",
   "license": "ISC",

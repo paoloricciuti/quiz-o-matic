@@ -7,8 +7,8 @@ const exec = async (update) => {
         const message = {
             chat_id: update.message.chat.id,
             text: "This command is only for groups.",
-        }
-        utils.sendMessage(message)
+        };
+        utils.sendMessage(message);
         return;
     }
     const { Answer, User } = db;
@@ -55,10 +55,12 @@ const exec = async (update) => {
         chat_id: update.message.chat.id,
         text,
         parse_mode: "HTML",
-    }
-    utils.sendMessage(message)
+    };
+    utils.sendMessage(message);
 };
 
 module.exports = {
-    exec
-}
+    exec,
+    scope: utils.SCOPES_ENUM.ALL_GROUP_CHATS,
+    description: "Send the leaderboard for the chat ordered by fastest person on correct answers",
+};

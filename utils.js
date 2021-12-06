@@ -31,7 +31,7 @@ const setCommands = async (commandMap) => {
                     type: scope,
                 },
             })
-        }).then(res => res.json()).then(data => console.log(`Setting commands ${JSON.stringify(commands)} with scope ${scope}`, data));
+        }).then(res => res.json()).then(data => console.log(`Setting commands ${JSON.stringify(commands.map(elem => elem.command))} with scope ${scope}`, data));
     });
 };
 

@@ -47,6 +47,6 @@ const exec = async (update) => {
 
 module.exports = {
     exec,
-    scope: utils.SCOPES_ENUM.ALL_CHAT_ADMINISTRATORS,
+    scopes: [utils.SCOPES_ENUM.ALL_CHAT_ADMINISTRATORS],
     description: "Let an admin choose which hours the chat will receive a quiz",
 };

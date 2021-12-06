@@ -49,6 +49,6 @@ const exec = async (update) => {
 
 module.exports = {
     exec,
-    scope: utils.SCOPES_ENUM.ALL_GROUP_CHATS,
+    scopes: [utils.SCOPES_ENUM.ALL_CHAT_ADMINISTRATORS, utils.SCOPES_ENUM.ALL_GROUP_CHATS],
     description: "Send the leaderboard for the chat ordered by highest percentage of correct answers",
 };

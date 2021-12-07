@@ -1,6 +1,6 @@
 const utils = require('../utils');
 
-const exec = (update) => {
+const exec = async (update) => {
     const checkAdmin = await utils.checkAdmin(update);
     if (!checkAdmin) {
         const message = {

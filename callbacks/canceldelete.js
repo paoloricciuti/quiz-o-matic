@@ -6,7 +6,7 @@ const exec = async (update) => {
     if (!checkAdmin) {
         return;
     }
-    utils.deleteMessage(update.message.message_id, update.message.chat.id);
+    utils.deleteMessage(update.callback_query.message.message_id, update.callback_query.message.chat.id);
 };
 
 module.exports = {

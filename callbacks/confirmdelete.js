@@ -10,22 +10,22 @@ const exec = async (update) => {
     try {
         await Poll.destroy({
             where: {
-                chat_id: update.message.chat.id,
+                chat_id: update.callback_query.message.chat.id,
             }
         });
         await Answer.destroy({
             where: {
-                chat_id: update.message.chat.id,
+                chat_id: update.callback_query.message.chat.id,
             }
         });
         utils.sendMessage({
-            chat_id: update.message.chat.id,
+            chat_id: update.callback_query.message.chat.id,
             text: "And PUFF 💨! All your data is gone!",
         });
     } catch (e) {
         console.log(e);
         utils.sendMessage({
-            chat_id: update.message.chat.id,
+            chat_id: update.callback_query.message.chat.id,
             text: "There was a problem deleting the chat history. Try to contact my creator!"
         });
     }

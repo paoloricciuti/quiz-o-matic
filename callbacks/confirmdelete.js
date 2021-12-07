@@ -8,12 +8,12 @@ const exec = async (update) => {
     }
     const { Poll, Answer } = db;
     try {
-        await Poll.destroy({
+        await Answer.destroy({
             where: {
                 chat_id: update.callback_query.message.chat.id.toString(),
             }
         });
-        await Answer.destroy({
+        await Poll.destroy({
             where: {
                 chat_id: update.callback_query.message.chat.id.toString(),
             }

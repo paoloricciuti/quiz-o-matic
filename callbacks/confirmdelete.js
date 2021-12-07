@@ -10,12 +10,12 @@ const exec = async (update) => {
     try {
         await Poll.destroy({
             where: {
-                chat_id: update.callback_query.message.chat.id,
+                chat_id: update.callback_query.message.chat.id.toString(),
             }
         });
         await Answer.destroy({
             where: {
-                chat_id: update.callback_query.message.chat.id,
+                chat_id: update.callback_query.message.chat.id.toString(),
             }
         });
         utils.sendMessage({

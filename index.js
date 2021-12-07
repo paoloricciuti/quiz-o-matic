@@ -23,6 +23,10 @@ const answerMiddleware = async (req, res) => {
         } catch (e) {
             console.error(e);
         }
+        utils.sendMessage({
+            chat_id: update.my_chat_member.chat.id,
+            text: "Hi everyone i'll i'm the @QuizOMaticBot, i'll delight and enlight you all with hourly trivia questions. An admin can set me up with the command /sethours (don't forget to set your locale with the command /setlocale). Let the race begin!"
+        });
         res.sendStatus(200);
         return;
     }

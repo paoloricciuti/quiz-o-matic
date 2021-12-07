@@ -48,6 +48,19 @@ const getCommand = (update) => {
     return "";
 };
 
+const deleteMessage = (message_id, chat_id) => {
+    return fetch(`${BASE_URL}/deleteMessage`, {
+        method: "POST",
+        headers: {
+            "content-type": "application/json",
+        },
+        body: JSON.stringify({
+            chat_id,
+            message_id,
+        }),
+    }).then(res => res.json());
+};
+
 const sendMessage = (message) => {
     return fetch(`${BASE_URL}/sendMessage`, {
         method: "POST",
@@ -125,4 +138,5 @@ module.exports = {
     editMessageReplyMarkup,
     SCOPES_ENUM,
     setCommands,
+    deleteMessage,
 };

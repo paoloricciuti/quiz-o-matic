@@ -10,9 +10,9 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      Answer.belongsTo(models.User);
-      Answer.belongsTo(models.Chat);
-      Answer.belongsTo(models.Poll);
+      Answer.belongsTo(models.User, { constraints: false });
+      Answer.belongsTo(models.Chat, { constraints: false });
+      Answer.belongsTo(models.Poll, { constraints: false });
     }
   };
   Answer.init({

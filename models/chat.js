@@ -12,7 +12,8 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       Chat.hasMany(models.Poll, {
         foreignKey: "chat_id",
-      })
+        constraints: false,
+      });
     }
   };
   Chat.init({

@@ -10,15 +10,15 @@ module.exports = {
       },
       poll_id: {
         type: Sequelize.STRING,
-        references: { model: 'polls', key: 'id', as: 'poll_id' }
+        references: { model: 'polls', key: 'id', as: 'poll_id', constraints: false }
       },
       user_id: {
         type: Sequelize.STRING,
-        references: { model: 'users', key: 'id', as: 'user_id' }
+        references: { model: 'users', key: 'id', as: 'user_id', constraints: false }
       },
       chat_id: {
         type: Sequelize.STRING,
-        references: { model: 'chats', key: 'id', as: 'chat_id' }
+        references: { model: 'chats', key: 'id', as: 'chat_id', constraints: false }
       },
       answer: {
         type: Sequelize.INTEGER

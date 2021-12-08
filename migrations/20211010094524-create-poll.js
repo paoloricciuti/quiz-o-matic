@@ -8,7 +8,6 @@ module.exports = {
       },
       chat_id: {
         type: Sequelize.STRING,
-        references: { model: 'chats', key: 'id', as: 'chat_id', constraints: false }
       },
       correct_option: {
         type: Sequelize.INTEGER

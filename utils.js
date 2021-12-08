@@ -42,7 +42,7 @@ const getCommand = (update) => {
     if (!commandEntity) return "";
     if (commandEntity.offset === 0) {
         let command = update.message.text.substring(0, commandEntity.length);
-        command = command.replace(proces.env.BOT_NAME, "");
+        command = command.replace(process.env.BOT_NAME, "");
         return command;
     }
     return "";

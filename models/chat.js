@@ -23,7 +23,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     chat: DataTypes.STRING,
     active: DataTypes.BOOLEAN,
-    hours: DataTypes.ARRAY(DataTypes.INTEGER),
+    hours: DataTypes.STRING,
     locale: DataTypes.INTEGER,
   }, {
     sequelize,

@@ -3,8 +3,8 @@
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.addColumn("chats", "hours", {
-      type: Sequelize.ARRAY(Sequelize.INTEGER),
-      defaultValue: [10, 12, 14],
+      type: Sequelize.STRING,
+      defaultValue: "$10$$12$$14$"
     });
     await queryInterface.addColumn("answers", "time_to_answer", {
       type: Sequelize.INTEGER,

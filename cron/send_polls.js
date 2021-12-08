@@ -20,7 +20,7 @@ const shuffle = (array) => {
 const exec = async () => {
     const { Chat, Poll } = db;
     const hour = new Date().getHours();
-    const registeredChats = await sequelize.query('SELECT "id", "chat", "active", "hours", "locale", "created_at" AS "createdAt", "updated_at" AS "updatedAt" FROM "chats" AS "Chat" WHERE "Chat"."active" = true AND "Chat"."hours" @> ARRAY[CASE WHEN ($1+"Chat"."locale")<0 THEN (24+($1+"Chat"."locale")) ELSE (($1+"Chat"."locale") % 24) END]::INTEGER[]', {
+    const registeredChats = await sequelize.query('SELECT id, chat, active, hours, locale, created_at AS createdAt, updated_at AS updatedAt FROM chats AS Chat WHERE Chat.active = true AND Chat.hours LIKE CONCAT("%$",IF($1+Chat.locale<0, (24+($1+Chat.locale)), (($1+Chat.locale) % 24)),"$%")', {
         bind: [hour],
         type: QueryTypes.SELECT,
         model: Chat,

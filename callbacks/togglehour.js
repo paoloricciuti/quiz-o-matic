@@ -16,11 +16,13 @@ const exec = async (update, [stringHour]) => {
     if (!toModify) {
         return;
     }
-    if (toModify.hours.includes(hour)) {
-        toModify.hours = toModify.hours.filter(elem => elem !== hour);
+    const modHours = utils.hoursStringToArray(toModify.hours);
+    if (modHours.includes(hour)) {
+        modHours = toModify.hours.filter(elem => elem !== hour);
     } else {
-        toModify.hours = [...toModify.hours, hour];
+        modHours = [...modHours, hour];
     }
+    toModify.hours = utils.hoursArrayToString(modHours);
     try {
         await toModify.save();
     } catch (e) {

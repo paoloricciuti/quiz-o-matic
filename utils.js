@@ -112,14 +112,23 @@ const checkAdmin = async (update) => {
     return ["administrator", "creator"].includes(result.result.status);
 };
 
+const hoursStringToArray = (hoursString) => {
+    return hoursString.match(/\$(\d)+\$/g).map(elem => +elem.replace(/\$/g, ""));
+};
+
+const hoursArrayToString = (hoursArray) => {
+    return hoursArray.map(elem => `$${elem}$`).join("");
+};
+
 const getHoursInlineKeyboard = (chat) => {
     let inline_keyboard = [];
+    const hours = hoursStringToArray(chat.hours);
     const per_row = 3;
     for (let i = 0; i < 24 / per_row; i++) {
         let button_row = [];
         for (let j = 0; j < per_row; j++) {
             button_row.push({
-                text: `${!chat.hours.includes(i * per_row + j) ? '🟥' : '🟩'} ${(i * per_row + j).toString().padStart(2, '0')}:00`,
+                text: `${!hours.includes(i * per_row + j) ? '🟥' : '🟩'} ${(i * per_row + j).toString().padStart(2, '0')}:00`,
                 callback_data: `togglehour ${(i * per_row + j)}`
             });
         }
@@ -139,4 +148,6 @@ module.exports = {
     SCOPES_ENUM,
     setCommands,
     deleteMessage,
+    hoursStringToArray,
+    hoursArrayToString,
 };

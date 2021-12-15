@@ -9,10 +9,12 @@ const base64ToString = (base64) => {
 };
 
 const shuffle = (array) => {
-    const retval = [...array];
-    for (let i = retval.length - 1; i >= 0; i--) {
-        const random = Math.floor(Math.random() * i);
-        [retval[i], retval[random]] = [retval[random], retval[i]];
+    const retval = [];
+    const hat = [...array];
+    for (let i = 0; i < array.length; i++) {
+
+        const random = Math.floor(Math.random() * hat.length);
+        retval.push(hat.splice(random, 1)[0]);
     }
     return retval;
 };

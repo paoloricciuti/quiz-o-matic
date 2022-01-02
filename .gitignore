@@ -102,3 +102,11 @@ dist
 
 # TernJS port file
 .tern-port
+
+dbs.txt
+generateinserts.js
+ans.json
+answers.json
+chats.json
+polls.json
+users.json

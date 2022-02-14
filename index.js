@@ -38,7 +38,7 @@ const answerMiddleware = async (req, res) => {
         try {
             User.upsert({
                 id: poll_answer.user.id,
-                username: poll_answer.user.username ? poll_answer.user.username : `${poll_answer.user.first_name}${poll_answer.user.last_name ? ` ${$poll_answer.user.last_name}` : ""}`
+                username: poll_answer.user.username ? poll_answer.user.username : `${poll_answer.user.first_name}${poll_answer.user.last_name ? ` ${poll_answer.user.last_name}` : ""}`
             });
         } catch (e) { console.error(e); }
         try {

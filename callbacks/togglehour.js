@@ -18,7 +18,7 @@ const exec = async (update, [stringHour]) => {
     }
     let modHours = utils.hoursStringToArray(toModify.hours);
     if (modHours.includes(hour)) {
-        modHours = toModify.hours.filter(elem => elem !== hour);
+        modHours = modHours.filter(elem => elem !== hour);
     } else {
         modHours = [...modHours, hour];
     }

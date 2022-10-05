@@ -113,11 +113,11 @@ const checkAdmin = async (update) => {
 };
 
 const hoursStringToArray = (hoursString) => {
-    return hoursString.match(/\$(\d)+\$/g).map(elem => +elem.replace(/\$/g, ""));
+    return (hoursString.match(/\$(\d)+\$/g) ?? []).map(elem => +elem.replace(/\$/g, ""));
 };
 
 const hoursArrayToString = (hoursArray) => {
-    return hoursArray.map(elem => `$${elem}$`).join("");
+    return hoursArray?.map(elem => `$${elem}$`).join("") ?? "";
 };
 
 const getHoursInlineKeyboard = (chat) => {

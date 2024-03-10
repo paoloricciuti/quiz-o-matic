@@ -39,37 +39,40 @@ const exec = async () => {
 		let i = 0;
 		const promises = [];
 		for (let chat of registeredChats) {
-			promises.push(async () => {
-				const data = questions[i];
-				const options = shuffle([
-					...data.incorrect_answers,
-					data.correct_answer,
-				]);
-				const sentPoll = await utils.sendPoll({
-					chat_id: chat.id,
-					question: base64ToString(data.question),
-					options: options.map(base64ToString),
-					is_anonymous: false,
-					type: 'quiz',
-					correct_option_id: options.indexOf(data.correct_answer),
-					open_period: 600,
-				});
-				console.log(sentPoll);
-				try {
-					Poll.create({
-						id: sentPoll.result.poll.id,
-						chat_id: sentPoll.result.chat.id,
-						correct_option: sentPoll.result.poll.correct_option_id,
+			promises.push(
+				(async () => {
+					const data = questions[i];
+					const options = shuffle([
+						...data.incorrect_answers,
+						data.correct_answer,
+					]);
+					const sentPoll = await utils.sendPoll({
+						chat_id: chat.id,
+						question: base64ToString(data.question),
+						options: options.map(base64ToString),
+						is_anonymous: false,
+						type: 'quiz',
+						correct_option_id: options.indexOf(data.correct_answer),
+						open_period: 600,
 					});
-					toReturn.push({
-						id: chat.id,
-						name: chat.chat,
-						question: sentPoll.result.poll.question,
-					});
-				} catch (e) {
-					console.error(e);
-				}
-			});
+					console.log(sentPoll);
+					try {
+						Poll.create({
+							id: sentPoll.result.poll.id,
+							chat_id: sentPoll.result.chat.id,
+							correct_option:
+								sentPoll.result.poll.correct_option_id,
+						});
+						toReturn.push({
+							id: chat.id,
+							name: chat.chat,
+							question: sentPoll.result.poll.question,
+						});
+					} catch (e) {
+						console.error(e);
+					}
+				})()
+			);
 			i = (i + 1) % questions.length;
 		}
 		await Promise.allSettled(promises);

@@ -72,8 +72,8 @@ const exec = async () => {
 			});
 			i = (i + 1) % questions.length;
 		}
+		await Promise.allSettled(promises);
 	}
-	await Promise.allSettled(promises);
 	return toReturn;
 };
 
